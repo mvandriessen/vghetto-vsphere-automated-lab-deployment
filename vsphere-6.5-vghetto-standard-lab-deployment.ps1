@@ -199,6 +199,16 @@ if($preCheck -eq 1) {
             exit
         }
     }
+
+     if($addHostByDnsName -eq 1) {
+        try{
+            Resolve-DnsName -Name $VCSAHostname -ErrorAction Stop | Out-File -Append -LiteralPath $verboseLogFile
+        }
+        catch{
+            Write-Host -ForegroundColor Red "`nUnable to find DNS record for $VCSAHostname ...`nexiting"
+            exit
+        }
+     }
 }
 
 if($confirmDeployment -eq 1) {

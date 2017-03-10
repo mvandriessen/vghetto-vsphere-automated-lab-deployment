@@ -126,6 +126,15 @@ if($preCheck -eq 1) {
         Write-Host -ForegroundColor Red "`nUnable to find $VCSAInstallerPath ...`nexiting"
         exit
     }
+
+    try{
+        Resolve-DnsName -Name $VCSAHostname -ErrorAction Stop | Out-File -Append -LiteralPath $verboseLogFile
+    }
+    catch{
+        Write-Host -ForegroundColor Red "`nUnable to find DNS record for $VCSAHostname ...`nexiting"
+        exit
+    }
+    
 }
 
 if($confirmDeployment -eq 1) {
